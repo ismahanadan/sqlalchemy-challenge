@@ -78,8 +78,9 @@ def stations():
         station_dict["Stations"]= station
         all_stations.append(station_dict)
 
-     return jsonify(all_stations)   
-     
+    return jsonify(all_stations)    
+
+
 
 
 

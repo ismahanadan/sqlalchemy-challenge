@@ -105,7 +105,16 @@ def tobs():
 
     return jsonify(all_data)
 
+
+@app.route("/api/v1.0/<start>")
+def start():  
+
     
+
+
+
+
+
 
 
 

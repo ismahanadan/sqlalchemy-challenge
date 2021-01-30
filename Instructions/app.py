@@ -1,4 +1,6 @@
+
 import numpy as np
+
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -33,6 +35,7 @@ def welcome():
     return (
         f"Available Routes:<br/>"
         f"/api/v1.0/precipitation"
+        
         f"/api/v1.0/stations"
     )
 
@@ -78,7 +81,38 @@ def stations():
         station_dict["Stations"]= station
         all_stations.append(station_dict)
 
-    return jsonify(all_stations)    
+    return jsonify(all_stations)   
+
+@app.route("/api/v1.0/tobs")
+def tobs():  
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    results = session.query(Measurement.station, Measurement.tobs).\
+    filter(Measurement.date >= '2010-01-01', Measurement.station =='USC00519281').filter(Measurement.tobs).all()
+
+    session.close()
+
+
+    all_data = []
+
+    for station, tobs in results:
+        temp_dict = {}
+        temp_dict["Station"]= station
+        temp_dict["Temperature"]= tobs
+        all_data.append(temp_dict)
+
+    return jsonify(all_data)
+
+    
+
+
+
+
+
+
+
 
 
 
